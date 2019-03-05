@@ -6,11 +6,11 @@ import sys
 
 dialogue = []
 def twitterAccountFeed(feed):
-    html = urllib.urlopen('https://twitter.com/'+feed)
+    html = urllib.request.urlopen('https://twitter.com/'+feed)
     if html.getcode() == 200 and feed != '':
         parseTweets(html, feed)
     else:
-        print "Invalid Twitter Feed"
+        print("Invalid Twitter Feed")
         sys.exit(1)
 
 def parseTweets(html, feed):
@@ -22,21 +22,21 @@ def parseTweets(html, feed):
     try:
         tts = gTTS(text=speech, lang='en')
         tts.save(feed + '.mp3')
-        print "Twitter feed has been converted to an mp3"
-    except Exception, e:
-        print "Error on audio conversion: "
-        print e
+        print("Twitter feed has been converted to an mp3")
+    except Exception as e:
+        print("Error on audio conversion: ")
+        print(e)
     # return menu()  # Use if you want to return to the menu after completion.
 
 def menu():
-    print " "
-    print "/-- Tweet2Speech - Converts a user's Twitter feed to a spoken mp3 file --\\"
-    print " "
-    print "    [*] Be sure to have gTTS and bs4 modules installed before running"
-    print "    [*] Input a twitter handle without the @ (i.e. DalaiLama)"
-    print "    [*] An mp3 file will be output in the home folder"
-    print "  "
-    feed = raw_input("Enter the Twitter Name you want to capture (i.e. DalaiLama) : ")
+    print(" ")
+    print("/-- Tweet2Speech - Converts a user's Twitter feed to a spoken mp3 file --\\")
+    print(" ")
+    print("    [*] Be sure to have gTTS and bs4 modules installed before running")
+    print("    [*] Input a twitter handle without the @ (i.e. DalaiLama)")
+    print("    [*] An mp3 file will be output in the home folder")
+    print("  ")
+    feed = input("Enter the Twitter Name you want to capture (i.e. DalaiLama) : ")
     twitterAccountFeed(feed)
 
 if __name__ == '__main__':
