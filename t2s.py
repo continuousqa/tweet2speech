@@ -14,11 +14,13 @@ def twitterAccountFeed(feed):
         sys.exit(1)
 
 def parseTweets(html, feed):
-    bt = BeautifulSoup(html)
+    bt = BeautifulSoup(html, features='lxml')
     for div in bt.findAll("div", {"class":"js-tweet-text-container"}):
         noUrl = re.sub(r'\w+:\/{2}[\d\w-]+(\.[\d\w-]+)*(?:(?:\/[^\s/]*))*', '', div.text) # code from http://stackoverflow.com/questions/11331982/how-to-remove-any-url-within-a-string-in-python
         dialogue.append(noUrl)
     speech = ''.join(dialogue)
+    print(speech)
+    
     try:
         tts = gTTS(text=speech, lang='en')
         tts.save(feed + '.mp3')
